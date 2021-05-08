@@ -13,7 +13,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <Content />
+        <router-view></router-view>
         <!-- /.container-fluid -->
       </div>
 
@@ -29,14 +29,12 @@
 <script>
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import Content from "./components/Content";
 import Footer from "./components/Footer";
 export default {
   name: "App",
   components: {
     Sidebar,
     Navbar,
-    Content,
     Footer
   },
 };
