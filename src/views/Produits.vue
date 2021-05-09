@@ -15,6 +15,7 @@
         ::key="index"
         data-toggle="modal"
         data-target="#exampleModal"
+        v-on:click="openModal(index)"
       >
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
@@ -50,7 +51,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Produit</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Produits</h5>
 
           <button
             type="button"
@@ -62,27 +63,24 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                type="name"
-                class="form-control"
-                id="exampleInputname1"
-                placeholder="name"
-              />
-            </div>
-            <div class="form-group">
-              <label for="price">Prix</label>
-              <input
-                type="price"
-                class="form-control"
-                id="exampleInputprice1"
-                placeholder="price"
-              />
-            </div>
-            
-          </form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputname1"
+              v-model="name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="price">Prix</label>
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputprice1"
+              v-model="price"
+            />
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -100,12 +98,19 @@ export default {
   name: "Produits",
   data() {
     return {
-      modal: false,
+      name: "",
+      price: "",
       produits: [
         { name: "robe de soirée", price: 1500, img: "../assets/robe.jpg" },
         { name: "Costume", price: 2500, img: "../assets/robe.jpg" },
       ],
     };
+  },
+  methods: {
+    openModal(index) {
+      this.name = this.produits[index].name;
+      this.price = this.produits[index].price;
+    },
   },
 };
 </script>
