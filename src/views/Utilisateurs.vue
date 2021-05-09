@@ -46,7 +46,7 @@
                 <input type="password" class="form-control" v-model="pwd" />
               </td>
               <td v-if="!user.modifyOn">
-                <button class="btn btn-danger">Supprimer</button>
+                <button class="btn btn-danger" v-on:click="deleteUser(index)">Supprimer</button>
               </td>
               <td v-else>
                 <button class="btn btn-warning" v-on:click="validModif(index)">
@@ -96,6 +96,13 @@ export default {
       this.username = "";
       this.pwd = "";
     },
+    deleteUser(index){
+      const filter = (user, i) => {
+        if(index != i) return true
+        else return false
+      }
+     this.users = this.users.filter(filter);
+    }
   },
 };
 </script>
