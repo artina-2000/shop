@@ -33,11 +33,11 @@
               </td>
             </tr>
             <tr v-for="(user, index) in users" :key="user.id" ::key="index">
-              <td v-if="!user.modifyUsername" v-on:dblclick="modifyUsername(index)">
+              <td v-if="!user.modifyOn" v-on:click="modify(index)">
                 {{ user.username }}
               </td>
               <td v-else><input type="text" class="form-control" /></td>
-              <td v-if="!user.modifyPwd" v-on:dblclick="modifyPwd(index)">
+              <td v-if="!user.modifyOn" v-on:click="modify(index)">
                 {{ user.pwd }}
               </td>
               <td v-else><input type="password" class="form-control" /></td>
@@ -59,7 +59,7 @@ export default {
       username: "",
       pwd: "",
       showInput: false,
-      users: [{ username: "Manitra", pwd: "2000", modifyUsername: false , modifyPwd: false}],
+      users: [{ username: "Manitra", pwd: "2000", modifyOn: false}],
     };
   },
   methods: {
@@ -72,11 +72,8 @@ export default {
       this.pwd = "";
       this.showInput = false;
     },
-    modifyUsername(index) {
-      this.users[index].modifyUsername = true;
-    },
-    modifyPwd(index) {
-      this.users[index].modifyPwd = true;
+    modify(index) {
+      this.users[index].modifyOn = true;
     },
   },
 };
