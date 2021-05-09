@@ -36,12 +36,23 @@
               <td v-if="!user.modifyOn" v-on:click="modify(index)">
                 {{ user.username }}
               </td>
-              <td v-else><input type="text" class="form-control" /></td>
+              <td v-else>
+                <input type="text" class="form-control" v-model="username" />
+              </td>
               <td v-if="!user.modifyOn" v-on:click="modify(index)">
                 {{ user.pwd }}
               </td>
-              <td v-else><input type="password" class="form-control" /></td>
-              <td><button class="btn btn-danger">Supprimer</button></td>
+              <td v-else>
+                <input type="password" class="form-control" v-model="pwd" />
+              </td>
+              <td v-if="!user.modifyOn">
+                <button class="btn btn-danger">Supprimer</button>
+              </td>
+              <td v-else>
+                <button class="btn btn-warning" v-on:click="validModif(index)">
+                  Enregistrer
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -59,7 +70,8 @@ export default {
       username: "",
       pwd: "",
       showInput: false,
-      users: [{ username: "Manitra", pwd: "2000", modifyOn: false}],
+      modifyIndex: null,
+      users: [{ username: "Manitra", pwd: "2000", modifyOn: false }],
     };
   },
   methods: {
@@ -74,6 +86,13 @@ export default {
     },
     modify(index) {
       this.users[index].modifyOn = true;
+      this.username = this.users[index].username;
+      this.password = this.users[index].password;
+    },
+    validModif(index) {
+      this.users[index].modifyOn = false;
+      this.users[index].username = this.username;
+      this.users[index].password = this.password;
     },
   },
 };
