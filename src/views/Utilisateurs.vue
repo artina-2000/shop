@@ -93,6 +93,8 @@ export default {
       this.users[index].modifyOn = false;
       this.users[index].username = this.username;
       this.users[index].password = this.password;
+      this.username = "";
+      this.pwd = "";
     },
   },
 };
