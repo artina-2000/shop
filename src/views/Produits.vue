@@ -8,19 +8,16 @@
     <!-- Content Row -->
     <div class="row">
       <!-- Earnings (Monthly) Card Example -->
-      <div
-        class="col-xl-3 col-md-6 mb-4"
-        v-for="(produit, index) in produits"
+      <div class="col-xl-3 col-md-6 mb-4"  v-for="(produit, index) in produits"
         :key="produit.id"
         ::key="index"
-        data-toggle="modal"
-        data-target="#exampleModal"
-        v-on:click="openModal(index)"
-      >
+       >
         <div class="card border-left-primary shadow h-100 py-2">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
+              <div class="col mr-2"  data-toggle="modal"
+        data-target="#exampleModal"
+        v-on:click="openModal(index)">
                 <div
                   class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                 >
@@ -30,6 +27,7 @@
                   ${{ produit.price }}
                 </div>
               </div>
+              <button class="pull-right btn btn-secondary " v-on:click="contextuelmenu()">...</button> 
               <div class="col-auto">
                 <img src="../assets/robe.jpg" style="width: 100%" />
               </div>
@@ -75,7 +73,7 @@
           <div class="form-group">
             <label for="price">Prix</label>
             <input
-              type="password"
+              type="number"
               class="form-control"
               id="exampleInputprice1"
               v-model="price"
@@ -83,10 +81,14 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Fermer
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-dismiss="modal"
+            v-on:click="sauvegarde(index)"
+          >
+            Sauvegarder
           </button>
-          <button type="button" class="btn btn-primary">Sauvegarder</button>
         </div>
       </div>
     </div>
@@ -100,6 +102,8 @@ export default {
     return {
       name: "",
       price: "",
+      editIndex: null,
+      ptsuspension: false,
       produits: [
         { name: "robe de soirée", price: 1500, img: "../assets/robe.jpg" },
         { name: "Costume", price: 2500, img: "../assets/robe.jpg" },
@@ -110,6 +114,14 @@ export default {
     openModal(index) {
       this.name = this.produits[index].name;
       this.price = this.produits[index].price;
+      this.editIndex = index;
+    },
+    sauvegarde() {
+      this.produits[this.editIndex].name = this.name;
+      this.produits[this.editIndex].price = this.price;
+    },
+    contextuelMenu() {
+      alert("ok");
     },
   },
 };
