@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div id="wrapper" v-if="isConnected">
     <!-- Sidebar -->
     <Sidebar />
     <!-- End of Sidebar -->
@@ -20,10 +20,15 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-        <Footer />
+      <Footer />
       <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->
+  </div>
+  <div v-else>
+    <input type="text" v-model="username" />
+    <input type="password" v-model="pwd" />
+    <button v-on:click="login()">Se connecter</button>
   </div>
 </template>
 <script>
@@ -32,10 +37,48 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 export default {
   name: "App",
+  created() {
+    if (localStorage.getItem("users") == null) {
+      const defaultUser = [{ username: "Manitra", pwd: "2000" }];
+      localStorage.setItem("users", JSON.stringify(defaultUser));
+    }
+    if (localStorage.getItem("isConnected")) {
+      this.users = JSON.parse(localStorage.getItem("users"));
+      this.isConnected = JSON.parse(localStorage.getItem("isConnected"));
+    } else {
+      localStorage.setItem("isConnected", JSON.stringify(false));
+    }
+  },
+  data() {
+    return {
+      isConnected: false,
+      users: [],
+      username: "",
+      pwd: "",
+    };
+  },
+  methods: {
+    login() {
+      const find = (user) => {
+        if (user.username == this.username && user.pwd == this.pwd) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+      const foundUser = this.users.find(find);
+      if (foundUser) {
+        this.isConnected = true;
+        localStorage.setItem("isConnected", JSON.stringify(foundUser));
+      } else {
+        console.log("tsy misy");
+      }
+    },
+  },
   components: {
     Sidebar,
     Navbar,
-    Footer
+    Footer,
   },
 };
 </script>

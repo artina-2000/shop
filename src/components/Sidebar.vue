@@ -43,10 +43,10 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-      <router-link class="nav-link" to="/deconnecter">
+      <a class="nav-link" href="javascript:void(0)" v-on:click="logout()">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Se déconnecter</span>
-      </router-link>>
+      </a>>
     </li>
   </ul>
 </template>
@@ -54,6 +54,12 @@
 <script>
 export default {
   name: "Sidebar",
+  methods: {
+    logout() {
+      this.$parent.isConnected = false;
+      localStorage.removeItem('isConnected');
+    }
+  }
 };
 </script>
 
