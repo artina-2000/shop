@@ -38,7 +38,7 @@
                   <input type="password" class="form-control" v-model="pwd" />
                 </td>
                 <td>
-                  <button v-on:click="insertUser()" class="btn btn-secondary">
+                  <button v-on:click="insertUser()"  class="btn btn-secondary">
                     Insérer
                   </button>
                 </td>
@@ -156,25 +156,25 @@ export default {
       this.pwd = "";
       this.showInput = false;
     },
-    modify(index) {
-      this.users[index].modifyOn = true;
-      this.username = this.users[index].username;
-      this.password = this.users[index].password;
-    },
-    validModif(index) {
-      this.users[index].modifyOn = false;
-      this.users[index].username = this.username;
-      this.users[index].password = this.password;
-      this.username = "";
-      this.pwd = "";
-    },
-    annulModif(index) {
-      this.users[index].modifyOn = false;
-      this.username = this.users[index].username;
-      this.password = this.users[index].password;
-      this.username = "";
-      this.pwd = "";
-    },
+    // modify(index) {
+    //   this.users[index].modifyOn = true;
+    //   this.username = this.users[index].username;
+    //   this.password = this.users[index].password;
+    // },
+    // validModif(index) {
+    //   this.users[index].modifyOn = false;
+    //   this.users[index].username = this.username;
+    //   this.users[index].password = this.password;
+    //   this.username = "";
+    //   this.pwd = "";
+    // },
+    // annulModif(index) {
+    //   this.users[index].modifyOn = false;
+    //   this.username = this.users[index].username;
+    //   this.password = this.users[index].password;
+    //   this.username = "";
+    //   this.pwd = "";
+    // },
     deleteModal(index) {
       this.deleteIndex = index;
     },
