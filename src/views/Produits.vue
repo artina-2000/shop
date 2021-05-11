@@ -6,7 +6,7 @@
       <a
         href="#"
         class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-        v-on:click="addproduit()"
+        v-on:click="create()"
         data-toggle="modal"
         data-target="#exampleModal2"
       >
@@ -171,14 +171,15 @@
             type="button"
             class="btn btn-primary"
             data-dismiss="modal"
-            v-on:click="sauvegarde(index)"
+            v-on:click="addproduit()"
           >
-            Sauvegarder
+            Ajouter
           </button>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -213,9 +214,12 @@ export default {
       };
       this.produits = this.produits.filter(filter);
     },
+    create() {
+      this.name = "";
+      this.price = "";
+    },
     addproduit() {
-      this.name="";
-      this.price="";
+      this.produits.push({ name: this.name, price: this.price });
     },
   },
 };
