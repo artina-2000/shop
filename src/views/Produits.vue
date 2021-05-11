@@ -112,7 +112,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-warning"
+            class="btn btn-primary"
             data-dismiss="modal"
             v-on:click="sauvegarde(index)"
           >
@@ -120,7 +120,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-success"
+            class="btn btn-danger"
             data-dismiss="modal"
             v-on:click="annuleModif(index)"
           >

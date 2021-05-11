@@ -70,14 +70,13 @@
                   <div class="text-center">
                     <button
                       v-bind:disabled="username == '' || pwd == ''"
-                      class="btn btn-warning margin-20"
+                      class="btn btn-primary margin-20"
                       v-on:click="validModif(index)"
                     >
                       Enregistrer
                     </button>
                     <button
-                      v-bind:disabled="username == '' || pwd == ''"
-                      class="btn btn-success margin-20"
+                      class="btn btn-danger margin-20"
                       style="margin-rigth: 2%"
                       v-on:click="annulModif(index)"
                     >
