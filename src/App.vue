@@ -39,14 +39,16 @@ export default {
   name: "App",
   created() {
     if (localStorage.getItem("users") == null) {
-      const defaultUser = [{ username: "Manitra", pwd: "2000" }];
-      localStorage.setItem("users", JSON.stringify(defaultUser));
-    }
-    if (localStorage.getItem("isConnected")) {
-      this.users = JSON.parse(localStorage.getItem("users"));
-      this.isConnected = JSON.parse(localStorage.getItem("isConnected"));
+      this.users = [{ username: "Manitra", pwd: "2000" }];
+      localStorage.setItem("users", JSON.stringify(this.users));
     } else {
+      this.users = JSON.parse(localStorage.getItem("users"));
+    }
+
+    if (localStorage.getItem("isConnected") == null) {
       localStorage.setItem("isConnected", JSON.stringify(false));
+    } else {
+      this.isConnected = JSON.parse(localStorage.getItem("isConnected"));
     }
   },
   data() {
