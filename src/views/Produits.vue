@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid">
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">LES PRODUITS</h1>
       <a
@@ -13,8 +12,6 @@
         Créer</a
       >
     </div>
-
-    <!-- Content Row -->
     <div class="row">
       <div
         class="col-xl-3 col-md-6 mb-4"
@@ -70,7 +67,6 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
   <div
     class="modal fade"
     id="exampleModal"
@@ -116,7 +112,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-warning"
             data-dismiss="modal"
             v-on:click="sauvegarde(index)"
           >
@@ -124,7 +120,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-success"
             data-dismiss="modal"
             v-on:click="annuleModif(index)"
           >
@@ -189,9 +185,6 @@
       </div>
     </div>
   </div>
-  <!-- Button trigger modal -->
-
-  <!-- Modal -->
   <div
     class="modal fade"
     id="exampleModalCenter"
@@ -249,7 +242,9 @@ export default {
       editIndex: null,
       deleteIndex: null,
       ptsuspension: false,
-      produits: [],
+      produits: [
+        // {name: 'robe de nuit', price: 15000}
+      ],
     };
   },
   methods: {
@@ -265,6 +260,8 @@ export default {
     sauvegarde() {
       this.produits[this.editIndex].name = this.name;
       this.produits[this.editIndex].price = this.price;
+       const stringProduits = JSON.stringify(this.produits);
+      localStorage.setItem('produits', stringProduits);
     },
     contextuelMenu(index) {
       this.deleteIndex = index;
@@ -275,6 +272,8 @@ export default {
         else return false;
       };
       this.produits = this.produits.filter(filter);
+      const stringProduits = JSON.stringify(this.produits);
+      localStorage.setItem('produits', stringProduits);
     },
     annuleDelete() {
       this.deleteIndex = null;
