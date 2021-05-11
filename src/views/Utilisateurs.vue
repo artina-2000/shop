@@ -38,25 +38,25 @@
                   <input type="password" class="form-control" v-model="pwd" />
                 </td>
                 <td>
-                  <button v-on:click="insertUser()"  class="btn btn-secondary">
+                  <button v-on:click="insertUser()" class="btn btn-secondary" v-bind:disabled="username == '' || pwd == ''">
                     Insérer
                   </button>
                 </td>
               </tr>
               <tr v-for="(user, index) in users" :key="user.id" ::key="index">
-                <td v-if="!user.modifyOn" v-on:click="modify(index)">
+                <td v-if="index != modifyIndex" v-on:click="modify(index)">
                   {{ user.username }}
                 </td>
                 <td v-else>
                   <input type="text" class="form-control" v-model="username" />
                 </td>
-                <td v-if="!user.modifyOn" v-on:click="modify(index)">
-                  {{ user.pwd }}
+                <td v-if="index != modifyIndex" v-on:click="modify(index)">
+                  {{ showMdp(user.pwd) }}
                 </td>
                 <td v-else>
                   <input type="password" class="form-control" v-model="pwd" />
                 </td>
-                <td v-if="!user.modifyOn">
+                <td v-if="index != modifyIndex">
                   <button
                     class="btn btn-danger"
                     data-toggle="modal"
@@ -69,12 +69,14 @@
                 <td v-else>
                   <div class="text-center">
                     <button
+                      v-bind:disabled="username == '' || pwd == ''"
                       class="btn btn-warning margin-20"
                       v-on:click="validModif(index)"
                     >
                       Enregistrer
                     </button>
                     <button
+                      v-bind:disabled="username == '' || pwd == ''"
                       class="btn btn-success margin-20"
                       style="margin-rigth: 2%"
                       v-on:click="annulModif(index)"
@@ -135,7 +137,7 @@
 <script>
 export default {
   name: "Utilisateurs",
- 
+
   data() {
     return {
       username: "",
@@ -143,38 +145,42 @@ export default {
       showInput: false,
       modifyIndex: null,
       deleteIndex: null,
-      users: [{ username: "Manitra", pwd: "2000", modifyOn: false }],
+      users: [{ username: "Manitra", pwd: "2000" }],
     };
   },
   methods: {
     createUser() {
+      this.modifyIndex = null;
       this.showInput = true;
     },
     insertUser() {
-      this.users.push({ username: this.username, password: this.pwd });
+      this.users.push({
+        username: this.username,
+        pwd: this.pwd,
+      });
+      console.log(this.users);
       this.username = "";
       this.pwd = "";
       this.showInput = false;
     },
-    // modify(index) {
-    //   this.users[index].modifyOn = true;
-    //   this.username = this.users[index].username;
-    //   this.password = this.users[index].password;
-    // },
-    // validModif(index) {
-    //   this.users[index].modifyOn = false;
-    //   this.users[index].username = this.username;
-    //   this.users[index].password = this.password;
-    //   this.username = "";
-    //   this.pwd = "";
-    // },
-    // annulModif(index) {
-    //   this.users[index].modifyOn = false;
-    //   this.username = this.users[index].username;
-    //   this.password = this.users[index].password;
-    //   this.username = "";
-    //   this.pwd = "";
-    // },
+    modify(index) {
+      this.modifyIndex = index;
+      this.showInput = false;
+      this.username = this.users[index].username;
+      this.pwd = this.users[index].pwd;
+    },
+    validModif(index) {
+      this.users[index].username = this.username;
+      this.users[index].pwd = this.pwd;
+      this.username = "";
+      this.pwd = "";
+      this.modifyIndex = null;
+    },
+    annulModif() {
+      this.modifyIndex = null;
+      this.username = "";
+      this.pwd = "";
+    },
     deleteModal(index) {
       this.deleteIndex = index;
     },
@@ -184,6 +190,16 @@ export default {
         else return false;
       };
       this.users = this.users.filter(filter);
+    },
+    showMdp(mdp) {
+      let mdpHide = "";
+      for (let m of mdp) {
+        mdpHide += "*";
+        if (m) {
+          m = +"";
+        }
+      }
+      return mdpHide;
     },
   },
 };
