@@ -236,6 +236,12 @@
 <script>
 export default {
   name: "Produits",
+  created() {
+    if(localStorage.getItem('produits')) {
+      const jsonProduits = JSON.parse(localStorage.getItem('produits'));
+      this.produits = jsonProduits;
+    }
+  },
   data() {
     return {
       name: "",
@@ -243,10 +249,7 @@ export default {
       editIndex: null,
       deleteIndex: null,
       ptsuspension: false,
-      produits: [
-        { name: "robe de soirée", price: 1500, img: "../assets/robe.jpg" },
-        { name: "Costume", price: 2500, img: "../assets/robe.jpg" },
-      ],
+      produits: [],
     };
   },
   methods: {
@@ -282,6 +285,8 @@ export default {
     },
     addproduit() {
       this.produits.push({ name: this.name, price: this.price });
+      const stringProduits = JSON.stringify(this.produits);
+      localStorage.setItem('produits', stringProduits);
     },
   },
 };
