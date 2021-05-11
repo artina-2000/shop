@@ -54,6 +54,8 @@
                   <a
                     class="dropdown-item"
                     href="#"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
                     v-on:click="contextuelMenu(index)"
                     >supprimer</a
                   >
@@ -120,6 +122,14 @@
           >
             Sauvegarder
           </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            v-on:click="annuleModif(index)"
+          >
+            Annuler
+          </button>
         </div>
       </div>
     </div>
@@ -179,7 +189,48 @@
       </div>
     </div>
   </div>
+  <!-- Button trigger modal -->
 
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalCenter"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h3 class="text-center">Vous êtes sur?</h3>
+          <h5 class="text-center text-danger">
+            Cette action est irreversible!
+          </h5>
+        </div>
+        <div class="text-center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            style="margin: 2%"
+            v-on:click="deleteProduit(index)"
+          >
+            Oui,Supprimer
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="margin: 2%"
+            data-dismiss="modal"
+            v-on:click="annuleDelete(index)"
+          >
+            Non,Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -190,6 +241,7 @@ export default {
       name: "",
       price: "",
       editIndex: null,
+      deleteIndex: null,
       ptsuspension: false,
       produits: [
         { name: "robe de soirée", price: 1500, img: "../assets/robe.jpg" },
@@ -203,16 +255,26 @@ export default {
       this.price = this.produits[index].price;
       this.editIndex = index;
     },
+    annuleModif() {
+      this.name = this.produits[this.editIndex].name;
+      this.price = this.produits[this.editIndex].price;
+    },
     sauvegarde() {
       this.produits[this.editIndex].name = this.name;
       this.produits[this.editIndex].price = this.price;
     },
     contextuelMenu(index) {
+      this.deleteIndex = index;
+    },
+    deleteProduit() {
       const filter = (produit, i) => {
-        if (index != i) return true;
+        if (this.deleteIndex != i) return true;
         else return false;
       };
       this.produits = this.produits.filter(filter);
+    },
+    annuleDelete() {
+      this.deleteIndex = null;
     },
     create() {
       this.name = "";
