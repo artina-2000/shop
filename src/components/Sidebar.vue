@@ -7,10 +7,10 @@
     <!-- Sidebar - Brand -->
     <a
       class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="index.html"
+      href="#"
     >
       <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
+        <i class="fab fa-shopify"></i>
       </div>
       <div class="sidebar-brand-text mx-3">HAZEN<sup>Field</sup></div>
     </a>
@@ -20,10 +20,9 @@
     <hr class="sidebar-divider my-0" />
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item ">
+    <li class="nav-item">
       <router-link class="nav-link" to="/">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Produits</span>
+        <i class="fas fa-shopping-cart"></i> <span>Produits</span>
       </router-link>
       <!-- <a class="nav-link" href="index.html">
         <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -35,8 +34,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
       <router-link class="nav-link" to="/utilisateurs">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Utilisateurs</span></router-link
+        <i class="fas fa-user"></i> <span>Utilisateurs</span></router-link
       >
     </li>
     <hr class="sidebar-divider my-0" />
@@ -44,9 +42,8 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
       <a class="nav-link" href="javascript:void(0)" v-on:click="logout()">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Se déconnecter</span>
-      </a>>
+        <i class="fas fa-sign-out-alt"></i> <span>Se déconnecter</span> </a
+      >>
     </li>
   </ul>
 </template>
@@ -57,9 +54,9 @@ export default {
   methods: {
     logout() {
       this.$parent.isConnected = false;
-      localStorage.removeItem('isConnected');
-    }
-  }
+      localStorage.removeItem("isConnected");
+    },
+  },
 };
 </script>
 
