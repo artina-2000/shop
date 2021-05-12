@@ -136,7 +136,12 @@
 <script>
 export default {
   name: "Utilisateurs",
-
+ created() {
+    if(localStorage.getItem('users')) {
+      const jsonUsers = JSON.parse(localStorage.getItem('users'));
+      this.users = jsonUsers;
+    }
+  },
   data() {
     return {
       username: "",
@@ -161,12 +166,15 @@ export default {
       this.username = "";
       this.pwd = "";
       this.showInput = false;
+       const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem('users', stringUsers);
     },
     modify(index) {
       this.modifyIndex = index;
       this.showInput = false;
       this.username = this.users[index].username;
       this.pwd = this.users[index].pwd;
+ 
     },
     validModif(index) {
       this.users[index].username = this.username;
@@ -174,6 +182,8 @@ export default {
       this.username = "";
       this.pwd = "";
       this.modifyIndex = null;
+       const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem('users', stringUsers);
     },
     annulModif() {
       this.modifyIndex = null;
@@ -189,6 +199,8 @@ export default {
         else return false;
       };
       this.users = this.users.filter(filter);
+       const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem('users', stringUsers);
     },
     showMdp(mdp) {
       let mdpHide = "";
