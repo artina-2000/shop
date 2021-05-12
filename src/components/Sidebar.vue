@@ -7,7 +7,7 @@
     <!-- Sidebar - Brand -->
     <a
       class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="#"
+      href="javascript:void(0)"
     >
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fab fa-shopify"></i>
