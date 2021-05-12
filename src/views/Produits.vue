@@ -115,6 +115,7 @@
             class="btn btn-primary"
             data-dismiss="modal"
             v-on:click="sauvegarde(index)"
+            v-bind:disabled="name == '' || price == ''"
           >
             Sauvegarder
           </button>
@@ -178,6 +179,7 @@
             class="btn btn-primary"
             data-dismiss="modal"
             v-on:click="addproduit()"
+            v-bind:disabled="name == '' || price == ''"
           >
             Ajouter
           </button>
@@ -230,8 +232,8 @@
 export default {
   name: "Produits",
   created() {
-    if(localStorage.getItem('produits')) {
-      const jsonProduits = JSON.parse(localStorage.getItem('produits'));
+    if (localStorage.getItem("produits")) {
+      const jsonProduits = JSON.parse(localStorage.getItem("produits"));
       this.produits = jsonProduits;
     }
   },
@@ -260,8 +262,8 @@ export default {
     sauvegarde() {
       this.produits[this.editIndex].name = this.name;
       this.produits[this.editIndex].price = this.price;
-       const stringProduits = JSON.stringify(this.produits);
-      localStorage.setItem('produits', stringProduits);
+      const stringProduits = JSON.stringify(this.produits);
+      localStorage.setItem("produits", stringProduits);
     },
     contextuelMenu(index) {
       this.deleteIndex = index;
@@ -273,7 +275,7 @@ export default {
       };
       this.produits = this.produits.filter(filter);
       const stringProduits = JSON.stringify(this.produits);
-      localStorage.setItem('produits', stringProduits);
+      localStorage.setItem("produits", stringProduits);
     },
     annuleDelete() {
       this.deleteIndex = null;
@@ -285,7 +287,7 @@ export default {
     addproduit() {
       this.produits.push({ name: this.name, price: this.price });
       const stringProduits = JSON.stringify(this.produits);
-      localStorage.setItem('produits', stringProduits);
+      localStorage.setItem("produits", stringProduits);
     },
   },
 };

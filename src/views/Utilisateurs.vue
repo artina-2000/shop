@@ -44,7 +44,7 @@
                 </td>
               </tr>
               <tr v-for="(user, index) in users" :key="user.id" ::key="index">
-                <td v-if="index != modifyIndex" v-on:click="modify(index)">
+                <td v-if="index != modifyIndex " v-on:click="modify(index)">
                   {{ user.username }}
                 </td>
                 <td v-else>
@@ -62,6 +62,7 @@
                     data-toggle="modal"
                     data-target="#exampleModalCenter"
                     v-on:click="deleteModal(index)"
+                    v-if="jsonConnectedUser.username != user.username"
                   >
                     Supprimer
                   </button>
@@ -141,6 +142,7 @@ export default {
       const jsonUsers = JSON.parse(localStorage.getItem('users'));
       this.users = jsonUsers;
     }
+    this.jsonConnectedUser = JSON.parse(localStorage.getItem('isConnected'));
   },
   data() {
     return {
@@ -150,6 +152,7 @@ export default {
       modifyIndex: null,
       deleteIndex: null,
       users: [{ username: "Manitra", pwd: "2000" }],
+      jsonConnectedUser:null,
     };
   },
   methods: {
@@ -170,10 +173,13 @@ export default {
       localStorage.setItem('users', stringUsers);
     },
     modify(index) {
-      this.modifyIndex = index;
+      if(this.jsonConnectedUser.username != this.users[index].username) {
+        this.modifyIndex = index;
       this.showInput = false;
       this.username = this.users[index].username;
       this.pwd = this.users[index].pwd;
+      }
+      
  
     },
     validModif(index) {

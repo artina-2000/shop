@@ -146,7 +146,7 @@
           aria-expanded="false"
         >
           <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-            >Douglas McGee</span
+            >{{username}}</span
           >
           <img
             class="img-profile rounded-circle"
@@ -189,6 +189,15 @@
 <script>
 export default {
   name: "Navbar",
+  created() {
+    const JsonIsconneted =  JSON.parse(localStorage.getItem('isConnected'));
+    this.username = JsonIsconneted.username;
+  },
+  data() {
+    return {
+      username:'',
+    }
+  }
 };
 </script>
 
