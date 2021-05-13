@@ -38,13 +38,23 @@
                   <input type="password" class="form-control" v-model="pwd" />
                 </td>
                 <td>
-                  <button v-on:click="insertUser()" class="btn btn-secondary" v-bind:disabled="username == '' || pwd == ''">
+                  <button
+                    v-on:click="insertUser()"
+                    class="btn btn-primary margin-20"
+                    v-bind:disabled="username == '' || pwd == ''"
+                  >
                     Insérer
+                  </button>
+                  <button
+                    v-on:click="annulinsertUser()"
+                    class="btn btn-danger margin-20"
+                  >
+                    Annuler
                   </button>
                 </td>
               </tr>
               <tr v-for="(user, index) in users" :key="user.id" ::key="index">
-                <td v-if="index != modifyIndex " v-on:click="modify(index)">
+                <td v-if="index != modifyIndex" v-on:click="modify(index)">
                   {{ user.username }}
                 </td>
                 <td v-else>
@@ -137,12 +147,12 @@
 <script>
 export default {
   name: "Utilisateurs",
- created() {
-    if(localStorage.getItem('users')) {
-      const jsonUsers = JSON.parse(localStorage.getItem('users'));
+  created() {
+    if (localStorage.getItem("users")) {
+      const jsonUsers = JSON.parse(localStorage.getItem("users"));
       this.users = jsonUsers;
     }
-    this.jsonConnectedUser = JSON.parse(localStorage.getItem('isConnected'));
+    this.jsonConnectedUser = JSON.parse(localStorage.getItem("isConnected"));
   },
   data() {
     return {
@@ -152,13 +162,19 @@ export default {
       modifyIndex: null,
       deleteIndex: null,
       users: [{ username: "Manitra", pwd: "2000" }],
-      jsonConnectedUser:null,
+      jsonConnectedUser: null,
     };
   },
   methods: {
     createUser() {
       this.modifyIndex = null;
       this.showInput = true;
+      this.username = "";
+      this.pwd = "";
+    },
+    annulinsertUser() {
+      this.showInput = false;
+      this.modifyIndex = null;
     },
     insertUser() {
       this.users.push({
@@ -169,18 +185,16 @@ export default {
       this.username = "";
       this.pwd = "";
       this.showInput = false;
-       const stringUsers = JSON.stringify(this.users);
-      localStorage.setItem('users', stringUsers);
+      const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem("users", stringUsers);
     },
     modify(index) {
-      if(this.jsonConnectedUser.username != this.users[index].username) {
+      if (this.jsonConnectedUser.username != this.users[index].username) {
         this.modifyIndex = index;
-      this.showInput = false;
-      this.username = this.users[index].username;
-      this.pwd = this.users[index].pwd;
+        this.showInput = false;
+        this.username = this.users[index].username;
+        this.pwd = this.users[index].pwd;
       }
-      
- 
     },
     validModif(index) {
       this.users[index].username = this.username;
@@ -188,8 +202,8 @@ export default {
       this.username = "";
       this.pwd = "";
       this.modifyIndex = null;
-       const stringUsers = JSON.stringify(this.users);
-      localStorage.setItem('users', stringUsers);
+      const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem("users", stringUsers);
     },
     annulModif() {
       this.modifyIndex = null;
@@ -205,8 +219,8 @@ export default {
         else return false;
       };
       this.users = this.users.filter(filter);
-       const stringUsers = JSON.stringify(this.users);
-      localStorage.setItem('users', stringUsers);
+      const stringUsers = JSON.stringify(this.users);
+      localStorage.setItem("users", stringUsers);
     },
     showMdp(mdp) {
       let mdpHide = "";
